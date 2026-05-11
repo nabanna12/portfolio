@@ -7,16 +7,11 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          // Three.js in its own chunk — loaded separately, doesn't block React boot
-          three: ['three'],
-          // Framer Motion in its own chunk
+          three:  ['three'],
           motion: ['framer-motion'],
-          // React core together
           vendor: ['react', 'react-dom'],
         },
       },
     },
-    // Raise warning limit since Three.js is legitimately large
-    chunkSizeWarningLimit: 800,
   },
 })
