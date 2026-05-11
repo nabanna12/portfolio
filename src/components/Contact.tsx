@@ -19,6 +19,7 @@ const CONTACT_CSS = `
   100% { transform: scale(2.2); opacity: 0; }
 }
 `
+
 function InjectContactStyles() {
   if (typeof document !== 'undefined' && !document.getElementById('contact-css')) {
     const s = document.createElement('style')
@@ -43,7 +44,11 @@ function Reveal({
       initial={{ opacity: 0, y: reduced ? 0 : y, x: reduced ? 0 : x }}
       whileInView={{ opacity: 1, y: 0, x: 0 }}
       viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: reduced ? 0.15 : 0.6, delay: reduced ? 0 : delay, ease: [0.16, 1, 0.3, 1] }}
+      transition={{
+        duration: reduced ? 0.15 : 0.6,
+        delay: reduced ? 0 : delay,
+        ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+      }}
       style={style}
     >
       {children}
@@ -51,47 +56,47 @@ function Reveal({
   )
 }
 
-// ─── Social config with your local logo files ─────────────────────────────────
+// ─── Social config ────────────────────────────────────────────────────────────
 const SOCIALS = [
   {
-    label:    'GitHub',
-    handle:   '@nabanna12',
-    hrefKey:  'github' as const,
-    logo:     '/logos/github.jpg',
-    bg:       '#1a1e22',
-    hoverBg:  '#2d3339',
-    glow:     'rgba(36,41,46,0.65)',
-    radius:   '50%',           // GitHub logo is circular
+    label:   'GitHub',
+    handle:  '@nabanna12',
+    hrefKey: 'github'   as const,
+    logo:    '/logos/github.jpg',
+    bg:      '#1a1e22',
+    hoverBg: '#2d3339',
+    glow:    'rgba(36,41,46,0.65)',
+    radius:  '50%',
   },
   {
-    label:    'LinkedIn',
-    handle:   'nabanna-choudhury',
-    hrefKey:  'linkedin' as const,
-    logo:     '/logos/linkedin.jpg',
-    bg:       '#0077b5',
-    hoverBg:  '#0089d0',
-    glow:     'rgba(0,119,181,0.60)',
-    radius:   'var(--radius-lg)',
+    label:   'LinkedIn',
+    handle:  'nabanna-choudhury',
+    hrefKey: 'linkedin' as const,
+    logo:    '/logos/linkedin.jpg',
+    bg:      '#0077b5',
+    hoverBg: '#0089d0',
+    glow:    'rgba(0,119,181,0.60)',
+    radius:  'var(--radius-lg)',
   },
   {
-    label:    'Email',
-    handle:   '',              // filled from personalInfo
-    hrefKey:  'email' as const,
-    logo:     '/logos/gmail.jpg',
-    bg:       '#ffffff',
-    hoverBg:  '#f5f5f5',
-    glow:     'rgba(234,67,53,0.50)',
-    radius:   '50%',
+    label:   'Email',
+    handle:  '',
+    hrefKey: 'email'    as const,
+    logo:    '/logos/gmail.jpg',
+    bg:      '#ffffff',
+    hoverBg: '#f5f5f5',
+    glow:    'rgba(234,67,53,0.50)',
+    radius:  '50%',
   },
   {
-    label:    'Location',
-    handle:   '',              // filled from personalInfo
-    hrefKey:  'location' as const,
-    logo:     '/logos/maps.jpg',
-    bg:       '#ffffff',
-    hoverBg:  '#f0faf2',
-    glow:     'rgba(52,168,83,0.55)',
-    radius:   '50%',
+    label:   'Location',
+    handle:  '',
+    hrefKey: 'location' as const,
+    logo:    '/logos/maps.jpg',
+    bg:      '#ffffff',
+    hoverBg: '#f0faf2',
+    glow:    'rgba(52,168,83,0.55)',
+    radius:  '50%',
   },
 ]
 
@@ -104,7 +109,8 @@ function SocialCard({
   glow: string; radius: string; delay: number
 }) {
   const [hovered, setHovered] = useState(false)
-  const isExternal = href.startsWith('http') || href.startsWith('mailto')
+
+  // ✅ FIX: removed unused `isExternal` variable that was causing TS6133
 
   return (
     <Reveal delay={delay} x={-20} y={0}>
@@ -133,7 +139,7 @@ function SocialCard({
           transition={{ duration: 0.25 }}
           style={{
             position: 'absolute', inset: 0,
-            background: `${glow.replace('0.', '0.0')}`,
+            background: glow.replace(/[\d.]+\)$/, '0.06)'),
             pointerEvents: 'none',
           }}
         />
@@ -149,8 +155,7 @@ function SocialCard({
             borderRadius: radius,
             background: hovered ? hoverBg : bg,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            flexShrink: 0,
-            overflow: 'hidden',
+            flexShrink: 0, overflow: 'hidden',
             border: '1px solid oklch(from var(--color-border) l c h / 0.6)',
             transition: 'background 0.25s ease',
           } as React.CSSProperties}
@@ -194,7 +199,7 @@ function SocialCard({
   )
 }
 
-// ─── Styles ───────────────────────────────────────────────────────────────────
+// ─── Shared styles ────────────────────────────────────────────────────────────
 const inputStyle: React.CSSProperties = {
   width: '100%',
   padding: 'var(--space-3) var(--space-4)',
@@ -222,7 +227,6 @@ export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' })
   const [sent, setSent]  = useState(false)
 
-  // Build social list with live data from portfolio.ts
   const socials = SOCIALS.map(s => ({
     ...s,
     href:
@@ -411,7 +415,10 @@ export default function Contact() {
                     transition={{ duration: 0.18 }}
                     style={{ display: 'flex', alignItems: 'center', gap: 8 }}
                   >
-                    {sent ? <>✅ Opening email client...</> : <><Send size={15} /> Send Message</>}
+                    {sent
+                      ? <>✅ Opening email client...</>
+                      : <><Send size={15} /> Send Message</>
+                    }
                   </motion.span>
                 </AnimatePresence>
               </motion.button>
