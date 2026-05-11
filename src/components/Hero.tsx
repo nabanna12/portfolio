@@ -60,6 +60,9 @@ function useTypewriter(words: string[]) {
   return text
 }
 
+// ── Easing curve typed correctly for Framer Motion ───────────────────────────
+const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
+
 // ── Letter-by-letter animated word ───────────────────────────────────────────
 function AnimatedWord({
   text,
@@ -75,13 +78,19 @@ function AnimatedWord({
   const prefersReduced = useReducedMotion()
 
   const letterVariants = {
-    hidden:  { opacity: 0, y: prefersReduced ? 0 : 40, rotateX: prefersReduced ? 0 : -20 },
+    hidden: {
+      opacity: 0,
+      y: prefersReduced ? 0 : 40,
+      rotateX: prefersReduced ? 0 : -20,
+    },
     visible: (i: number) => ({
-      opacity: 1, y: 0, rotateX: 0,
+      opacity: 1,
+      y: 0,
+      rotateX: 0,
       transition: {
         delay: delay + i * (prefersReduced ? 0 : 0.045),
         duration: prefersReduced ? 0.01 : 0.55,
-        ease: [0.16, 1, 0.3, 1],
+        ease: EASE,   // ✅ FIX: typed tuple instead of inline array literal
       },
     }),
   }
@@ -213,23 +222,14 @@ export default function Hero() {
                 letterSpacing: '-0.04em',
                 lineHeight: 0.95,
                 marginBottom: 'var(--space-5)',
-                // Prevent layout shift during animation
                 minHeight: 'calc(var(--text-hero) * 2 * 0.95)',
               }}
             >
-              {/* First name — plain text color */}
               <span style={{ display: 'block', color: 'var(--color-text)' }}>
                 <AnimatedWord text="Nabanna" delay={0.1} />
               </span>
-
-              {/* Last name — gradient + shimmer sweep */}
               <span style={{ display: 'block' }}>
-                <AnimatedWord
-                  text="Choudhury"
-                  delay={0.38}
-                  gradient
-                  shimmer
-                />
+                <AnimatedWord text="Choudhury" delay={0.38} gradient shimmer />
               </span>
             </h1>
 
@@ -266,9 +266,7 @@ export default function Hero() {
               style={{
                 fontSize: 'var(--text-base)', color: 'var(--color-text-muted)',
                 lineHeight: 1.75, marginBottom: 'var(--space-10)',
-                maxWidth: 500,
-                fontWeight: 400,
-                letterSpacing: '0.01em',
+                maxWidth: 500, fontWeight: 400, letterSpacing: '0.01em',
               }}
             >
               Building intelligent web experiences with{' '}
@@ -288,7 +286,6 @@ export default function Hero() {
                 flexWrap: 'wrap', marginBottom: 'var(--space-10)',
               }}
             >
-              {/* Primary CTA */}
               <motion.button
                 onClick={scrollToProjects}
                 whileHover={prefersReduced ? {} : { y: -2, boxShadow: '0 8px 24px oklch(from var(--color-primary) l c h / 0.35)' }}
@@ -307,7 +304,6 @@ export default function Hero() {
                 View Projects
               </motion.button>
 
-              {/* Secondary CTA */}
               <motion.a
                 href={personalInfo.resume}
                 download
