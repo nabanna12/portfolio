@@ -1,73 +1,117 @@
-# React + TypeScript + Vite
+<div align="center">
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🌐 Nabanna Choudhury — Portfolio Website
 
-Currently, two official plugins are available:
+**A modern, animated full-stack developer portfolio built with React 19, TypeScript, Three.js & Framer Motion.**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-Visit_Site-01696f?style=for-the-badge)](https://nabanna-portfolio.vercel.app)
+[![GitHub](https://img.shields.io/badge/GitHub-nabanna12-181717?style=for-the-badge&logo=github)](https://github.com/nabanna12)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-nabanna--choudhury-0077b5?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/nabanna-choudhury)
 
-## React Compiler
+</div>
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- 🎨 **3D Animated Background** — Interactive Three.js particle system in the hero section
+- 🌗 **Dark / Light Mode** — System preference detection with manual toggle
+- ⚡ **Smooth Animations** — Page-wide Framer Motion scroll reveals and micro-interactions
+- 📱 **Fully Responsive** — Optimized for all screen sizes from 375px to 2560px
+- 🧩 **Component Architecture** — Modular React components with TypeScript
+- 🎯 **Sections** — Hero, About, Skills, Projects, Resume, Contact
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🛠️ Tech Stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+| Category | Technology |
+|---|---|
+| **Frontend** | React 19, TypeScript, Vite 8 |
+| **3D / Animation** | Three.js, Framer Motion 12 |
+| **Icons** | Lucide React |
+| **Styling** | Custom CSS with OKLCH color system |
+| **Deployment** | Vercel |
+
+---
+
+## 📁 Project Structure
+
+```
+nabanna-portfolio/
+├── public/
+│   ├── assets/          # Resume PDF, profile photo
+│   └── logos/           # Brand logos (GitHub, LinkedIn, etc.)
+├── src/
+│   ├── components/      # React components (Hero, About, Skills, etc.)
+│   ├── data/
+│   │   └── portfolio.ts # All personal data — edit this to update the site
+│   └── main.tsx
+├── vercel.json          # SPA routing config for Vercel
+└── package.json
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🚀 Getting Started Locally
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+**Prerequisites:** Node.js 18+
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/nabanna12/portfolio.git
+cd portfolio
+
+# 2. Install dependencies
+npm install
+
+# 3. Start the development server
+npm run dev
 ```
+
+Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+---
+
+## 📝 Customization
+
+All personal data lives in a single file — `src/data/portfolio.ts`. Update your name, bio, projects, skills, experience, and education there. The entire site updates automatically.
+
+---
+
+## 🏗️ Build & Deploy
+
+```bash
+# Build for production
+npm run build
+
+# Preview production build locally
+npm run preview
+```
+
+This project is deployed on **Vercel**. Every `git push` to `main` triggers an automatic redeployment.
+
+---
+
+## 📜 Certifications
+
+- **Node.js Intermediate** — HackerRank (May 2025)
+- **Database Management Essentials** — University of Colorado via Coursera (May 2025)
+- **Introduction to Hardware & OS** — IBM via Coursera (May 2025)
+
+---
+
+## 👨‍💻 About Me
+
+Final-year B.Tech Computer Science & Engineering student at **Assam Downtown University** (CGPA: 8.2). Passionate about building full-stack web applications that merge elegant UI with powerful backend systems. Open to internship and full-time opportunities.
+
+📍 Guwahati, Assam, India  
+📧 nabannachoudhury@gmail.com
+
+---
+
+<div align="center">
+
+**⭐ If you like this portfolio, drop a star on the repo!**
+
+</div>
