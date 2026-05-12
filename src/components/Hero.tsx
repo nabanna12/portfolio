@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { GitBranch, Linkedin, Mail, ArrowDown, Sparkles } from 'lucide-react'
 import ThreeBackground from './ThreeBackground'
@@ -13,7 +13,11 @@ const roles = [
 
 function useTypewriter(words: string[]) {
   const [text, setText] = useState('')
-  const state = useRef({ idx: 0, deleting: false, charIdx: 0 })
+  const state = useRef({
+    idx: 0,
+    deleting: false,
+    charIdx: 0,
+  })
 
   useEffect(() => {
     let id: ReturnType<typeof setTimeout>
@@ -326,33 +330,19 @@ export default function Hero() {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.05, duration: 0.55, ease: EASE }}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 'var(--space-2)',
-                padding: '1px',
-                background:
-                  'linear-gradient(135deg, oklch(from var(--color-primary) l c h / 0.5), oklch(from var(--color-accent) l c h / 0.3))',
-                borderRadius: 'var(--radius-full)',
-                marginBottom: 'var(--space-8)',
-                animation: prefersReduced
-                  ? 'none'
-                  : 'badgePulse 3s ease-in-out infinite',
-              }}
             >
               <span
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: 'var(--space-2)',
-                  padding: 'var(--space-1) var(--space-4)',
+                  padding: 'var(--space-2) var(--space-4)',
+                  borderRadius: '999px',
                   background:
-                    'oklch(from var(--color-primary) l c h / 0.07)',
-                  backdropFilter: 'blur(12px)',
-                  borderRadius: 'var(--radius-full)',
-                  fontSize: 'var(--text-xs)',
+                    'oklch(from var(--color-primary) l c h / 0.08)',
                   color: 'var(--color-primary)',
-                  fontWeight: 500,
+                  fontSize: 'var(--text-xs)',
+                  fontWeight: 600,
                 }}
               >
                 <span
@@ -377,17 +367,13 @@ export default function Hero() {
               style={{
                 fontSize: 'clamp(3.5rem, 2.5rem + 5vw, 6.5rem)',
                 fontWeight: 800,
-                letterSpacing: '-0.045em',
                 lineHeight: 0.92,
+                letterSpacing: '-0.045em',
+                marginTop: 'var(--space-8)',
                 marginBottom: 'var(--space-6)',
               }}
             >
-              <span
-                style={{
-                  display: 'block',
-                  color: 'var(--color-text)',
-                }}
-              >
+              <span style={{ display: 'block' }}>
                 <AnimatedWord text="Nabanna" delay={0.1} />
               </span>
 
@@ -402,149 +388,91 @@ export default function Hero() {
             </h1>
 
             <motion.div
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.85, duration: 0.5, ease: EASE }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8 }}
               style={{
-                display: 'inline-flex',
+                display: 'flex',
                 alignItems: 'center',
-                gap: 'var(--space-2)',
-                fontSize: 'clamp(1rem, 0.85rem + 0.75vw, 1.25rem)',
-                fontWeight: 600,
-                color: 'var(--color-text-muted)',
-                minHeight: '2.75rem',
+                gap: '8px',
                 marginBottom: 'var(--space-8)',
+                minHeight: '30px',
               }}
             >
-              <span className="sr-only">
-                Role: {displayed || roles[0]}
-              </span>
-
               <span
-                aria-hidden
-                style={{ color: 'var(--color-primary)' }}
+                style={{
+                  color: 'var(--color-primary)',
+                  fontWeight: 600,
+                  fontSize: '1.2rem',
+                }}
               >
                 {displayed}
               </span>
 
               <span
-                aria-hidden
                 style={{
-                  display: 'inline-block',
-                  width: 2.5,
-                  height: '1.1em',
+                  width: 2,
+                  height: 24,
                   background: 'var(--color-primary)',
-                  borderRadius: 2,
-                  animation: 'blink 1s step-end infinite',
+                  animation: 'blink 1s infinite',
                 }}
               />
             </motion.div>
 
             <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.95, duration: 0.6, ease: EASE }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1 }}
               style={{
-                fontSize:
-                  'clamp(0.9375rem, 0.85rem + 0.44vw, 1.0625rem)',
-                color: 'var(--color-text-muted)',
+                maxWidth: 600,
                 lineHeight: 1.8,
+                color: 'var(--color-text-muted)',
                 marginBottom: 'var(--space-10)',
-                maxWidth: 540,
               }}
             >
-              Building intelligent web experiences with{' '}
-              <span
-                style={{
-                  color: 'var(--color-text)',
-                  fontWeight: 600,
-                }}
-              >
-                React
-              </span>
-              ,{' '}
-              <span
-                style={{
-                  color: 'var(--color-text)',
-                  fontWeight: 600,
-                }}
-              >
-                Node.js
-              </span>{' '}
-              &amp;{' '}
-              <span
-                style={{
-                  color: 'var(--color-accent)',
-                  fontWeight: 600,
-                }}
-              >
-                AI
-              </span>
-              .
+              Building intelligent web experiences with React, Node.js &
+              AI.
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.05, duration: 0.6, ease: EASE }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.1 }}
               style={{
                 display: 'flex',
-                gap: 'var(--space-3)',
+                gap: 'var(--space-4)',
                 flexWrap: 'wrap',
-                marginBottom: 'var(--space-10)',
+                marginBottom: 'var(--space-12)',
               }}
             >
               <motion.button
-                onClick={scrollToProjects}
-                whileHover={
-                  prefersReduced
-                    ? {}
-                    : {
-                        y: -2,
-                      }
-                }
+                whileHover={prefersReduced ? {} : { y: -2 }}
                 whileTap={{ scale: 0.96 }}
+                onClick={scrollToProjects}
                 style={{
                   position: 'relative',
                   overflow: 'hidden',
-                  padding: 'var(--space-3) var(--space-8)',
-                  background:
-                    'linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%)',
-                  color: '#fff',
+                  padding: '14px 28px',
+                  borderRadius: '999px',
                   border: 'none',
-                  borderRadius: 'var(--radius-full)',
-                  fontWeight: 600,
                   cursor: 'pointer',
-                }}
-                onMouseEnter={(e) => {
-                  const shine = e.currentTarget.querySelector(
-                    '.btn-shine'
-                  ) as HTMLElement
-
-                  if (shine) shine.style.opacity = '1'
-                }}
-                onMouseLeave={(e) => {
-                  const shine = e.currentTarget.querySelector(
-                    '.btn-shine'
-                  ) as HTMLElement
-
-                  if (shine) shine.style.opacity = '0'
+                  fontWeight: 600,
+                  color: '#fff',
+                  background:
+                    'linear-gradient(135deg,var(--color-primary),var(--color-primary-hover))',
                 }}
               >
                 <span
                   className="btn-shine"
-                  aria-hidden
                   style={{
                     position: 'absolute',
                     inset: 0,
                     background:
-                      'linear-gradient(105deg, transparent 30%, oklch(1 0 0 / 0.18) 50%, transparent 70%)',
+                      'linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.2) 50%, transparent 70%)',
                     backgroundSize: '200% 100%',
                     animation: prefersReduced
                       ? 'none'
                       : 'btnShimmer 1.6s linear infinite',
-                    opacity: 0,
-                    transition: 'opacity 200ms ease',
                     pointerEvents: 'none',
                   }}
                 />
@@ -558,15 +486,12 @@ export default function Hero() {
                 whileHover={prefersReduced ? {} : { y: -2 }}
                 whileTap={{ scale: 0.96 }}
                 style={{
-                  padding: 'var(--space-3) var(--space-8)',
+                  padding: '14px 28px',
+                  borderRadius: '999px',
                   border: '1px solid var(--color-border)',
-                  color: 'var(--color-text)',
-                  borderRadius: 'var(--radius-full)',
-                  fontWeight: 600,
                   textDecoration: 'none',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 'var(--space-2)',
+                  color: 'var(--color-text)',
+                  fontWeight: 600,
                 }}
               >
                 Download CV
@@ -576,64 +501,65 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 1.15, duration: 0.5 }}
+              transition={{ delay: 1.2 }}
               style={{
                 display: 'flex',
-                gap: 'var(--space-3)',
+                gap: 'var(--space-4)',
                 marginBottom: 'var(--space-16)',
               }}
             >
               {[
                 {
                   href: personalInfo.github,
-                  icon: <GitBranch size={17} />,
+                  icon: <GitBranch size={18} />,
                   label: 'GitHub',
                 },
                 {
                   href: personalInfo.linkedin,
-                  icon: <Linkedin size={17} />,
+                  icon: <Linkedin size={18} />,
                   label: 'LinkedIn',
                 },
                 {
                   href: `mailto:${personalInfo.email}`,
-                  icon: <Mail size={17} />,
+                  icon: <Mail size={18} />,
                   label: 'Email',
                 },
-              ].map((s) => (
+              ].map((item) => (
                 <motion.a
-                  key={s.label}
-                  href={s.href}
+                  key={item.label}
+                  href={item.href}
                   target={
-                    s.href.startsWith('mailto') ? undefined : '_blank'
+                    item.href.startsWith('mailto')
+                      ? undefined
+                      : '_blank'
                   }
                   rel={
-                    s.href.startsWith('mailto')
+                    item.href.startsWith('mailto')
                       ? undefined
                       : 'noopener noreferrer'
                   }
-                  aria-label={s.label}
                   whileHover={
                     prefersReduced
                       ? {}
                       : {
                           y: -3,
-                          scale: 1.07,
+                          scale: 1.05,
                         }
                   }
-                  whileTap={{ scale: 0.91 }}
+                  whileTap={{ scale: 0.95 }}
                   style={{
                     width: 48,
                     height: 48,
+                    borderRadius: '14px',
+                    border: '1px solid var(--color-border)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    border: '1px solid var(--color-border)',
-                    borderRadius: 'var(--radius-lg)',
                     color: 'var(--color-text-muted)',
                     textDecoration: 'none',
                   }}
                 >
-                  {s.icon}
+                  {item.icon}
                 </motion.a>
               ))}
             </motion.div>
@@ -641,12 +567,12 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 1.4, duration: 0.6 }}
+              transition={{ delay: 1.4 }}
               style={{
                 display: 'inline-flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: 'var(--space-2)',
+                gap: '8px',
                 color: 'var(--color-text-faint)',
               }}
             >
@@ -661,22 +587,21 @@ export default function Hero() {
 
               <div
                 style={{
-                  display: 'inline-flex',
+                  display: 'flex',
                   alignItems: 'center',
-                  gap: 'var(--space-2)',
+                  gap: '8px',
                   animation: prefersReduced
                     ? 'none'
                     : 'scrollBounce 2.2s ease-in-out infinite',
                 }}
               >
-                <ArrowDown size={13} strokeWidth={2.2} />
+                <ArrowDown size={13} />
 
                 <span
                   style={{
-                    fontSize: 'var(--text-xs)',
-                    letterSpacing: '0.12em',
+                    fontSize: '12px',
                     textTransform: 'uppercase',
-                    fontWeight: 500,
+                    letterSpacing: '0.12em',
                   }}
                 >
                   Scroll to explore
