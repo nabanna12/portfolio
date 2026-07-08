@@ -164,29 +164,34 @@ a, button, [role="button"] {
   white-space: nowrap; border-width: 0;
 }
 
-/* ── CUSTOM CURSOR ──────────────────────────────────────── */
-.cursor-dot {
+/* ── CUSTOM CURSOR — use transform only, no top/left reflow ─ */
+.cursor-dot,
+.cursor-ring {
   position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 10000;
+  /* transform is composited on GPU — no layout reflow */
+  will-change: transform;
+  contain: strict;
+}
+.cursor-dot {
   width: 8px; height: 8px;
   background: var(--color-primary);
   border-radius: 50%;
-  pointer-events: none;
-  z-index: 10000;
   transform: translate(-50%, -50%);
   transition: width 0.2s, height 0.2s, background 0.2s;
 }
 .cursor-ring {
-  position: fixed;
   width: 36px; height: 36px;
   border: 1.5px solid var(--color-primary);
   border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
   transform: translate(-50%, -50%);
   transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
   opacity: 0.6;
 }
-.cursor-dot.hovered { width: 16px; height: 16px; background: var(--color-accent); }
+.cursor-dot.hovered  { width: 16px; height: 16px; background: var(--color-accent); }
 .cursor-ring.hovered { width: 52px; height: 52px; border-color: var(--color-accent); opacity: 0.4; }
 
 /* ── LAYOUT UTILITIES ───────────────────────────────────── */
