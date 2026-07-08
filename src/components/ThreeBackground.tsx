@@ -1,5 +1,3 @@
-Here is an enhanced Three.js background component with creative visual effects.
-```tsx
 import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 
@@ -40,16 +38,14 @@ export default function ThreeBackground() {
     const sizes = new Float32Array(particleCount)
 
     for (let i = 0; i < particleCount; i++) {
-      // Spherical distribution with some randomness
       const radius = 40 + Math.random() * 30
       const theta = Math.random() * Math.PI * 2
       const phi = Math.acos(2 * Math.random() - 1)
       
       positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta)
-      positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta) * 0.8 // Flatten slightly
+      positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta) * 0.8
       positions[i * 3 + 2] = radius * Math.cos(phi) - 15
       
-      // Color based on position and randomness
       const r = Math.random()
       let c
       if (r < 0.12) c = glowColor
@@ -296,49 +292,40 @@ export default function ThreeBackground() {
       animId = requestAnimationFrame(animate)
       t += 0.004
 
-      // Smooth camera follow
       const maxScroll = Math.max(document.body.scrollHeight - window.innerHeight, 1)
       const scrollFrac = scrollY / maxScroll
       const targetCamY = scrollFrac * -70
       camera.position.y += (targetCamY - camera.position.y) * 0.05
       
-      // Mouse parallax with smoothing
       currentRotX += (targetRotationX - currentRotX) * 0.05
       currentRotY += (targetRotationY - currentRotY) * 0.05
       camera.position.x += (mouseX * 5 - camera.position.x) * 0.02
       camera.lookAt(currentRotX * 2, currentRotY * 2, 0)
 
-      // Main particle system rotation and pulsation
       particles.rotation.y = t * 0.02
       particles.rotation.x = Math.sin(t * 0.1) * 0.1
       
-      // Dust particles slow drift
       dustParticles.rotation.y = t * 0.005
       dustParticles.rotation.x = t * 0.003
       
-      // Ring rotation
       ring.rotation.x = Math.sin(t * 0.2) * 0.5
       ring.rotation.y = t * 0.15
       ring.rotation.z = Math.cos(t * 0.1) * 0.3
       
-      // Line network follows main particles
       lineNetwork.rotation.y = particles.rotation.y
       lineNetwork.rotation.x = particles.rotation.x
 
-      // Shapes rotation + floating with individual characteristics
       meshes.forEach(({ mesh, rSpeed, baseY, floatAmp, floatSpeed, originalMat }) => {
         mesh.rotation.x += rSpeed[0]
         mesh.rotation.y += rSpeed[1]
         mesh.position.y = baseY + Math.sin(t * floatSpeed + baseY * 0.1) * floatAmp
         
-        // Pulse material opacity
         if (originalMat instanceof THREE.MeshStandardMaterial) {
           const pulse = 0.08 + Math.sin(t * 0.8 + baseY) * 0.04
           originalMat.emissiveIntensity = isDark ? pulse : pulse * 0.5
         }
       })
 
-      // Animate orbs - floating and pulsing
       orbs.forEach((orb, idx) => {
         orb.mesh.position.y = orb.baseY + Math.sin(t * orb.floatSpeed + idx) * orb.floatAmp
         const scale = orb.originalScale + Math.sin(t * orb.pulseSpeed) * 0.15
@@ -350,7 +337,6 @@ export default function ThreeBackground() {
         }
       })
 
-      // Dynamic particle size based on distance from center
       const timeScale = 0.5 + Math.sin(t * 1.5) * 0.1
       particleMat.size = 0.18 * timeScale
 
@@ -403,4 +389,3 @@ export default function ThreeBackground() {
     />
   )
 }
-```
